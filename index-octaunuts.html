@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+	<script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+	<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+	<script>
+	    var playing = false;
+
+
+		AFRAME.registerComponent('markerhandler', {
+			init: function() {
+
+			    // Set up the tick throttling. Will check if marker is active every 500ms
+			    this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
+
+			},
+
+		  	tick: function(t, dt) {
+
+			    var audioEl = document.querySelector('#music');
+			    var audio = audioEl.components.sound;
+			    if (document.querySelector("#hiroMarker").object3D.visible == true &&  playing == false) {
+			        // MARKER IS PRESENT
+			        //alert("MARKER IS PRESENT");
+		        	audio.playSound();
+		        	playing = true;
+		           }
+		        if (document.querySelector("#hiroMarker").object3D.visible == false && playing == true){
+		        	//alert("MARKER IS NOT PRESENT");
+		        	audio.stopSound();
+		        	audio.currentTime = 0;
+		        	playing = false;
+		          }
+
+				 var ball = document.querySelector('#sphere');
+			     ball.addEventListener('click', function () { playPauseAudio(); console.log("Audio Play Toggle")});
+
+		  	}
+
+
+		});
+
+	 function playPauseAudio(){
+	  	//alert("MARKER IS PRESENT4");
+
+		 var audioEl =  document.querySelector('#music');
+		 var audio = audioEl.components.sound;
+         if (!playing){
+	  	    alert("PLAY SOUND");
+		    audio.playSound();
+		  }
+		 else{
+	   	     alert("PAUSE SOUND");
+		     audio.stopSound();
+		     audio.currentTime = 0;
+		  }
+		 playing = false;
+
+     };
+    </script>
+
+	<body style='margin : 0px; overflow: hidden; font-family: Monospace;'><div style='position: absolute; top: 10px; width:100%; text-align: center; z-index: 1;'>
+	</div>
+	   <a-scene id="a-scene" cursor="rayOrigin: mouse" light="defaultLightsEnabled: true" embedded arjs="sourceType:webcam; trackingMethod: best; debugUIEnabled: false; maxDetectionRate:30;">
+<!-- 	      <a-assets>
+    		 <audio id="audio" src="data/happy-birthday-musicbox.mp3" preload="auto"></audio>
+  	      </a-assets> -->
+  	      <a-assets>
+  	      	<a-asset-item id="audio" src="data/happy-birthday-musicbox.mp3" response-type="arraybuffer"></a-asset-item>
+  	        <a-asset-item id="saucer-obj" src="models/spaceship.obj"></a-asset-item>
+            <a-asset-item id="saucer-mtl" src="models/spaceship.mtl"></a-asset-item>
+          </a-assets>
+
+          <a-marker id="hiroMarker"  markerhandler emitevents="true" type='pattern' url='patterns/pattern-lo.patt'>
+	          <a-text value="Thank You Friend!"
+				position="0.05 0.5 0.5"
+				rotation="-90 0 0"
+				font="mozillavr"
+				color="#4682b4"
+				side="double"
+				align="center"
+				width="2">
+			   <a-animation
+			    attribute="position"
+			    dur="1000"
+			    fill="forwards"
+			    direction="alternate"
+			    to="0.05 0.6 0.5"
+			    easing="ease-in-out"
+			    repeat="indefinite">
+			    </a-animation>
+              </a-text>
+			  <a-sphere id="sphere" audiohandler src="data/octuauts.jpg" rotation="0 180 0" segments-height="46" position="0 0 0" scale="0.5 0.5 0.5">
+                    <a-animation
+						 attribute="rotation"
+						 dur="8000"
+						 fill="forwards"
+						 to="360 0 0"
+						 repeat="indefinite">
+					</a-animation>
+		       </a-sphere>
+ 			   <a-entity id="saucer" position="0 0.5 1" rotation="90 0 0" scale="0.05 0.05 0.05" shadow="cast: true" obj-model="obj: #saucer-obj; mtl: #saucer-mtl">
+					<a-animation attribute="position" dur="8000" direction="alternate" fill="forwards" from="2 2.05 1" to="-2 -2.05 0" repeat="indefinite">
+					</a-animation>
+                   <a-animation attribute="rotation" dur="8000" direction="alternate" fill="forwards" from="90 0 0" to="450 0 0" repeat="indefinite">
+	               </a-animation>
+	           </a-entity>
+	       </a-marker>
+	       <a-entity id="music" position="0.5 0.5 0.5" sound="src: #audio; autoplay: false;"></a-entity>
+  	       <a-entity camera></a-entity>
+		</a-scene>
+	</body>
+<html>
