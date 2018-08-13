@@ -24,7 +24,7 @@
 		   if (document.querySelector("#animated-marker").object3D.visible == false && playing == true){
 				intro.stopSound();
 				// audio.stopSound();
-				intro.currentTime = 0;
+			intro.currentTime = 0;
 				// audio.currentTime = 0;
 
 				playing = false;
@@ -33,6 +33,7 @@
 
 			var model =  document.querySelector('[gltf-model]');
 			model.addEventListener('click', function () { playPauseAudio(); console.log("Audio Play Toggle") });
+			playing = true;
 	  	}
 
 	});
