@@ -22,7 +22,7 @@
 				playing = true;
 			}
 		   if (document.querySelector("#animated-marker").object3D.visible == false && playing == true){
-				intro.stopSound();
+				intro.pauseSound();
 				// audio.stopSound();
 			intro.currentTime = 0;
 				// audio.currentTime = 0;
@@ -48,7 +48,7 @@
 		 }
 		else{
 	   	  //  alert("PAUSE SOUND");
-		     audio.stopSound();
+		     audio.pauseSound();
 		//     intro.stopSound();
 		     audio.currentTime = 0;
 		//     intro.currentTime = 0;
