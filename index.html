@@ -9,11 +9,11 @@
 
 		init: function() {
 		// Set up the tick throttling. Will check if marker is active every 500ms
-		    var start = true;
-			this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
+		    this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
 		},
 
 	  	tick: function(t, dt) {
+	  		var start = true;
 			var introEl =  document.querySelector('#intro');
 			var intro = introEl.components.sound;
 
