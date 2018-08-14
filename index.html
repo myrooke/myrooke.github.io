@@ -30,21 +30,21 @@
 			}
 
 			var model =  document.querySelector('[gltf-model]');
-			model.addEventListener('click', function () { playPauseAudio(); console.log("Audio Play Toggle") });
+			model.addEventListener('click', function () { playPauseAudio(intro); console.log("Audio Play Toggle") });
 
 	  	}
 
 	});
 
-	function playPauseAudio(){
+	function playPauseAudio(intro){
 	   	var audioEl =  document.querySelector('#rollout');
 	 	var audio = audioEl.components.sound;
 		if (!playing){
 		    audio.playSound();;
 		 }
 		else{
-		     audio.pauseSound();
-		     audio.currentTime = 0;
+		     intro.pauseSound();
+		     intro.currentTime = 0;
 	     }
 
 		playing = false;
