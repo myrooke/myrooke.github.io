@@ -3,12 +3,13 @@
 <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 <script>
     var playing = false;
-    //var start = true;
+
 
 	AFRAME.registerComponent('markerhandler', {
 
 		init: function() {
 		// Set up the tick throttling. Will check if marker is active every 500ms
+		    var start = true;
 			this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
 		},
 
@@ -16,9 +17,10 @@
 			var introEl =  document.querySelector('#intro');
 			var intro = introEl.components.sound;
 
-		    if (document.querySelector("#animated-marker").object3D.visible == true && playing == false) {
+		    if (document.querySelector("#animated-marker").object3D.visible == true && !playing && start) {
 				intro.playSound();
 				playing = true;
+				start = false;
 			}
 		   if (document.querySelector("#animated-marker").object3D.visible == false && playing == true){
 				intro.pauseSound();
@@ -45,7 +47,7 @@
 		     audio.currentTime = 0;
 	     }
 
-		playing = true;
+		playing = false;
      };
 
 	</script>
