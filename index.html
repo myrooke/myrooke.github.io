@@ -18,44 +18,34 @@
 
 		    if (document.querySelector("#animated-marker").object3D.visible == true && playing == false) {
 				intro.playSound();
-				// audio.playSound();
 				playing = true;
 			}
 		   if (document.querySelector("#animated-marker").object3D.visible == false && playing == true){
 				intro.pauseSound();
-				// audio.stopSound();
-			intro.currentTime = 0;
-				// audio.currentTime = 0;
-
+			    intro.currentTime = 0;
 				playing = false;
 
 			}
 
 			var model =  document.querySelector('[gltf-model]');
 			model.addEventListener('click', function () { playPauseAudio(); console.log("Audio Play Toggle") });
-			
+
 	  	}
-        
+
 	});
 
-	   function playPauseAudio(){
-	   	//alert("MARKER IS PRESENT4");
+	function playPauseAudio(){
 	   	var audioEl =  document.querySelector('#rollout');
 	 	var audio = audioEl.components.sound;
 		if (!playing){
-	   	   // alert("PLAY SOUND");
-		    audio.playSound();
+		    audio.playSound();;
 		 }
 		else{
-	   	  //  alert("PAUSE SOUND");
-		     audio.stopSound();
-		//     intro.stopSound();
+		     audio.pauseSound();
 		     audio.currentTime = 0;
-		//     intro.currentTime = 0;
+	     }
 
-	        }
-
-		playing = false;
+		playing = true;
      };
 
 	</script>
