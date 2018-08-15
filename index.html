@@ -21,37 +21,38 @@
 				intro.playSound();
 				playing = true;
 				start = false;
-			}
-			if (document.querySelector("#animated-marker").object3D.visible == false && playing == true){
-				intro.pauseSound();
-			    intro.currentTime = 0;
-				playing = false;
 
-			}
+			// if (document.querySelector("#animated-marker").object3D.visible == false && playing == true){
+			// 	intro.pauseSound();
+			//     intro.currentTime = 0;
+			// 	playing = false;
+
+			// }
 
 			var model =  document.querySelector('[gltf-model]');
 			model.addEventListener('click', function () { playPauseAudio(intro); console.log("Audio Play Toggle") });
 
 	  	}
+	  }
 
 	});
 
 	function playPauseAudio(intro){
 	   	var audioEl =  document.querySelector('#rollout');
 	 	var audio = audioEl.components.sound;
-		if (!playing){
-		    audio.playSound();;
+		if (playing){
+		    intro.pauseSound();
+		    audio.playSound();
 		 }
 		else{
 		     intro.pauseSound();
 		     intro.currentTime = 0;
 	     }
 
-		playing = false;
+		playing = true;
      };
 
-	</script>
-
+</script>
 <body style="margin : 0px; overflow: hidden;">
 	<a-scene light="defaultLightsEnabled: true" cursor="rayOrigin: mouse" embedded arjs="trackingMethod: best; debugUIEnabled: false;" antialias="true">
 	    <a-assets>
@@ -65,7 +66,7 @@
   	    	<audio id="audio1" src="data/autobots.mp3" preload="auto"></audio>
     		<audio id="audio2" src="data/autobots-3.mp3" preload="auto"></audio>
   	    </a-assets> -->
-        <a-marker markerhandler emitevents="true" cursor="rayOrigin: mouse" id="animated-marker" type='pattern' url='patterns/pattern-lr.patt'>
+         <a-marker-camera markerhandler emitevents="true" cursor="rayOrigin: mouse" id="animated-marker" type='pattern' url='patterns/pattern-lr.patt'>
 	        	<a-text value="Thank You Friend!"
 				position="0.05 0.1 1"
 				rotation="-90 0 0"
@@ -99,9 +100,8 @@
              <a-animation attribute="position" dur="2000" direction="alternate" to="3 -1.5 0.5" repeat="indefinite">
              </a-animation>
             </a-entity>
-	    </a-marker>
-	    <a-entity id="rollout" sound="src: #audio2; autoplay: false;"></a-entity>
-	    <a-entity id="intro" sound="src: #audio1; autoplay: false;"></a-entity>
-        <a-entity camera></a-entity>
+             <a-entity id="rollout" sound="src: #audio2; autoplay: false;"></a-entity>
+	    	<a-entity id="intro" sound="src: #audio1; autoplay: false;"></a-entity>
+	    </a-marker-camera>
 	</a-scene>
 </body>
