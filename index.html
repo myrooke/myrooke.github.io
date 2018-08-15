@@ -22,6 +22,12 @@
 				playing = true;
 				start = false;
 			}
+			if (document.querySelector("#animated-marker").object3D.visible == false && playing == true){
+				intro.pauseSound();
+			    intro.currentTime = 0;
+				playing = false;
+
+			}
 
 			var model =  document.querySelector('[gltf-model]');
 			model.addEventListener('click', function () { playPauseAudio(intro); console.log("Audio Play Toggle") });
